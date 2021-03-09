@@ -15,7 +15,6 @@
       esxi_hostname: '{{ esxi_hostname }}'
       networks:
       - name: '{{ vsphere_port_group }}'
-        device_type: vmxnet3
         ip: 192.168.1.151
         netmask: 255.255.0
         gateway: 192.168.1.1
