@@ -33,7 +33,7 @@
   - name: wait ssh port
     wait_for:
       port: 22
-      host: '{{ ansible_host }}'
+      host: '{{ vm_ip }}'
       search_regex: OpenSSH
       delay: 10
       timeout: 180
