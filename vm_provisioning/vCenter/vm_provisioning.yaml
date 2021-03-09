@@ -11,11 +11,11 @@
       state: poweredon
       folder: '{{ vsphere_folder }}'
       template: '{{ vm_template }}'
-      name: '{{ inventory_hostname }}.{{ vm_domain_name }}'
+      name: '{{ inventory_hostname }}'
       esxi_hostname: '{{ esxi_hostname }}'
       networks:
       - name: '{{ vsphere_port_group }}'
-        ip: '{{ ansible_host }}'
+        ip: '{{ vm_ip }}'
         netmask: '{{ vm_netmask }}'
         gateway: '{{ vm_gateway }}'
       customization:
@@ -25,7 +25,7 @@
   - name: wait vmware tools started
     vmware_guest_tools_wait:
       validate_certs: no
-      name: '{{ inventory_hostname }}.{{ vm_domain_name }}'
+      name: '{{ inventory_hostname }}'
       folder: '{{ vsphere_folder }}'
     delegate_to: localhost
     register: facts
