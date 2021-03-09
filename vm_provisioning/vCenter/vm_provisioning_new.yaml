@@ -6,20 +6,32 @@
   - name: provisioning VM from template
     vmware_guest:
       validate_certs: no
-      folder: "{{ vsphere_folder }}"
       datacenter: '{{ vcenter_datacenter }}'
       datastore: '{{ vcenter_datastore }}'
       state: poweredon
+      folder: '{{ vsphere_folder }}'
       template: '{{ vm_template }}'
-      name: "srv01.homelab.local"
+      name: '{{ inventory_hostname }}'
       esxi_hostname: '{{ esxi_hostname }}'
+      networks:
+      - name: '{{ vsphere_port_group }}'
+      customization:
+        dns_servers: '{{ vm_dns_servers }}'
     delegate_to: localhost
 
   - name: wait vmware tools started
     vmware_guest_tools_wait:
       validate_certs: no
-      name: "srv01.homelab.local"
+      name: '{{ inventory_hostname }}.{{ vm_domain_name }}'
       folder: '{{ vsphere_folder }}'
     delegate_to: localhost
     register: facts
 
+  - name: wait ssh port
+    wait_for:
+      port: 22
+      host: '{{ ansible_host }}'
+      search_regex: OpenSSH
+      delay: 10
+      timeout: 180
+    delegate_to: localhost
