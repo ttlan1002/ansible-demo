@@ -85,7 +85,7 @@ defaults
 #    server  app4 127.0.0.1:5004 check
 
 listen ingress_http
-    bind {{ ansible_default_ipv4.address }}:80
+    bind {{ ansible_default_ipv4.address }}:8080
     mode tcp
     balance roundrobin
     option tcplog
