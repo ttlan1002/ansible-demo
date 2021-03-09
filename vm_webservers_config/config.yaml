@@ -33,6 +33,15 @@
       - httpd
       state: present
       
+  - name: enable haproxy and httpd service
+    service:
+      name: "{{ items }}"
+      state: started
+      enabled: true
+    loop:
+      - haproxy
+      - httpd
+      
   - name: Copy over the haproxy configuration
     template: 
       src: haproxy.jinja2
