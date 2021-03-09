@@ -16,7 +16,7 @@
       networks:
       - name: '{{ vsphere_port_group }}'
         ip: 192.168.1.151
-        netmask: 255.255.0
+        netmask: 255.255.255.0
         gateway: 192.168.1.1
         dns_servers: 192.168.1.110
       customization:
