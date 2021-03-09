@@ -1,0 +1,59 @@
+---
+- name:  Config Webservers
+  hosts: all
+  gather_facts: true
+  
+  tasks: 
+  - name: Check which hypervisor is used
+    command: virt-what
+    register: hypervisor   
+
+  - name: Firewall configure
+    firewalld:
+      port: "{{ item }}"
+      permanent: yes
+      state: enabled
+      immediate: true
+    with_items:
+    - 80/tcp
+    - 3091/tcp
+    - 8080/tcp
+    when: hypervisor.stdout == "vmware" or hypervisor.stdout == "kvm"
+
+  - name: SELinux configure
+    seboolean:
+      name: haproxy_connect_any
+      state: yes
+      persistent: yes
+
+  - name: install required packages
+    package:
+      name:
+      - haproxy
+      - httpd
+      state: present
+      
+  - name: Copy over the haproxy configuration
+    template: 
+      src: haproxy.jinja2
+      dest: /etc/haproxy/haproxy.cfg
+    notify:
+    - restart haproxy
+
+  - name: Copy over the apache configuration
+    template: 
+      src: httpd.jinja2
+      dest: /etc/httpd/conf/httpd.conf
+    notify:
+    - restart httpd
+
+  handlers:
+  - name: restart httpd
+    service: 
+      name: httpd  
+      state: restarted
+
+  - name: restart haproxy
+    service: 
+      name: haproxy  
+      state: restarted

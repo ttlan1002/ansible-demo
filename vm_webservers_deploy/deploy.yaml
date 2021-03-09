@@ -1,0 +1,28 @@
+---
+- name: Deploy web content
+  hosts: all
+  gather_facts: true
+  tasks: 
+  - name: Copy over the httpd index
+    template: 
+      src: index.jinja2
+      dest: /var/www/html/index.html
+    notify:
+    - restart httpd
+    
+  - name: Copy over the httpd index
+    copy: 
+      src: index_html_image.gif
+      dest: /var/www/html/index_html_image.gif
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
+    notify:
+    - restart httpd
+
+  handlers:
+  - name: restart httpd
+    service: 
+      name: httpd  
+      state: restarted

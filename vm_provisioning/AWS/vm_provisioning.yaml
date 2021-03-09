@@ -1,0 +1,55 @@
+---
+- name: Setup an EC2 instance
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: Create an EC2 machine
+    ec2:
+      key_name: '{{ ec2_key_pair }}'
+      group_id: '{{ security_group }}'
+      instance_type: '{{ instance_type }}'
+      region: '{{ region }}'
+      image: '{{ ami_image }}'
+      wait: yes
+      vpc_subnet_id: '{{ vpc_subnet_id }}'
+      assign_public_ip: no
+      count: 2
+      volumes:
+      - device_name: /dev/sda1
+        volume_size: 16
+        delete_on_termination: yes
+    register: new_instance
+    run_once: true
+    delegate_to: localhost
+
+  - name: Create an EC2 machine
+    ec2_eni_info:
+      region: '{{ region }}'
+      filters:
+        attachment.instance-id: "{{ item.id }}"    
+    loop: '{{ new_instance.instances }}'
+    register: new_instance_eni
+    run_once: true
+    delegate_to: localhost
+
+  - name: Allocating elastic IP to instance
+    ec2_eip:
+      in_vpc: yes
+      reuse_existing_ip_allowed: yes
+      state: present
+      region: '{{ region }}'
+      device_id: "{{ item.network_interfaces[0].id }}"
+      allow_reassociation: yes
+    loop: '{{ new_instance_eni.results }}'
+    register: instance_eip
+    run_once: true
+    delegate_to: localhost
+
+  - name: wait ssh port
+    wait_for:
+      port: 22
+      host: '{{ ansible_host }}'
+      search_regex: OpenSSH
+      delay: 10
+      timeout: 180
+    delegate_to: localhost

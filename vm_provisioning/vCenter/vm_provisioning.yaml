@@ -1,0 +1,40 @@
+---
+- name:  Clone a virtual machine from Linux template and customize
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: provisioning VM from template
+    vmware_guest:
+      validate_certs: no
+      datacenter: '{{ vcenter_datacenter }}'
+      datastore: '{{ vcenter_datastore }}'
+      state: poweredon
+      folder: '{{ vsphere_folder }}'
+      template: '{{ vm_template }}'
+      name: '{{ inventory_hostname }}.{{ vm_domain_name }}'
+      esxi_hostname: '{{ esxi_hostname }}'
+      networks:
+      - name: '{{ vsphere_port_group }}'
+        ip: '{{ ansible_host }}'
+        netmask: '{{ vm_netmask }}'
+        gateway: '{{ vm_gateway }}'
+      customization:
+        dns_servers: '{{ vm_dns_servers }}'
+    delegate_to: localhost
+
+  - name: wait vmware tools started
+    vmware_guest_tools_wait:
+      validate_certs: no
+      name: '{{ inventory_hostname }}.{{ vm_domain_name }}'
+      folder: '{{ vsphere_folder }}'
+    delegate_to: localhost
+    register: facts
+
+  - name: wait ssh port
+    wait_for:
+      port: 22
+      host: '{{ ansible_host }}'
+      search_regex: OpenSSH
+      delay: 10
+      timeout: 180
+    delegate_to: localhost

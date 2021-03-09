@@ -1,0 +1,44 @@
+---
+- name:  Install Katello CA
+  hosts: all
+  tasks:
+  - name: setup server hostname
+    hostname:
+      name: '{{ hostname }}'
+
+  - name: install katello-ca rpm
+    yum:
+      name: '{{ katello_ca_url }}'
+      state: present
+      disable_gpg_check: yes
+  
+  - name: Set authorized key taken from file
+    authorized_key:
+      user: root
+      state: present
+      key: "{{ item }}"
+    loop:
+    - "{{ foreman_pubkey_url }}"
+    - "{{ ansible_pubkey }}"
+
+  - name: Register with activation key
+    redhat_subscription:
+      state: present
+      activationkey: '{{ activationkey }}' 
+      org_id: Default_Organization
+
+  - name: Register to Red Hat's RHN
+    redhat_subscription:
+      state: present
+      username: '{{ rhn_username }}'
+      password: '{{ rhn_password }}'
+      pool_ids: '{{ rhn_poolid }}'
+    tags: never
+
+  - name: Disable all repositories except
+    rhsm_repository:
+      name: 
+      - rhel-8-for-x86_64-baseos-rpms
+      - satellite-tools-6.8-for-rhel-8-x86_64-rpms
+      - rhel-8-for-x86_64-appstream-rpms
+      purge: True
