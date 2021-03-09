@@ -1,6 +1,6 @@
 ---
 - name:  Clone a virtual machine from Linux template and customize
-  hosts: all
+  hosts: srv01.homelab.local
   gather_facts: false
   tasks:
   - name: provisioning VM from template
@@ -15,14 +15,18 @@
       esxi_hostname: '{{ esxi_hostname }}'
       networks:
       - name: '{{ vsphere_port_group }}'
+        ip: 192.168.1.151
+        netmask: 255.255.0
+        gateway: 192.168.1.1
+        dns_servers: 192.168.1.110
       customization:
-        dns_servers: '{{ vm_dns_servers }}'
+        dns_servers: 192.168.1.110
     delegate_to: localhost
 
   - name: wait vmware tools started
     vmware_guest_tools_wait:
       validate_certs: no
-      name: '{{ inventory_hostname }}.{{ vm_domain_name }}'
+      name: '{{ inventory_hostname }}'
       folder: '{{ vsphere_folder }}'
     delegate_to: localhost
     register: facts
