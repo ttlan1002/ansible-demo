@@ -6,9 +6,7 @@
   - name: provisioning VM from template
     vmware_guest:
       validate_certs: no
-      hostname: "{{ vcenter_hostname }}"
-      username: "{{ vcenter_username }}"
-      password: "{{ vcenter_password }}"
+      folder: "{{ vcenter_folder }}"
       datacenter: '{{ vcenter_datacenter }}'
       datastore: '{{ vcenter_datastore }}'
       state: poweredon
