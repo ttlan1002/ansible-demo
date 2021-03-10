@@ -7,10 +7,6 @@
 server {{ server }} iburst
 {% endfor %}
 
-{% for server in local_ntp_server %}
-server {{ server }}
-{% endfor %}
-
 # Record the rate at which the system clock gains/losses time.
 driftfile /var/lib/chrony/drift
 
