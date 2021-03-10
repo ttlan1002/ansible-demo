@@ -17,7 +17,7 @@
     
   - name: set timezone
     timezone: 
-      name: Asian/Ho_Chi_Minh
+      name: "{{ local_timezone }}"
 
   handlers:
   - name: restart chronyd
