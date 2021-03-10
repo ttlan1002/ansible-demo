@@ -14,6 +14,7 @@
       state: present
       activationkey: '{{ activationkey }}' 
       org_id: Default_Organization
+      force_register: true
 
 
   
