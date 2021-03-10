@@ -3,16 +3,15 @@
   hosts: all
   gather_facts: false
   tasks:
+  - name: configure hostname
+    hostname:
+      name: "{{ hostname }}" 
+      
   - name: install required packages
     package:
       name: chrony
       state: present
       
-  - name: remove chronyd config
-    file:
-      path: /etc/chrony.conf
-      state: absent
- 
   - name: Copy over the chronyd configuration
     template: 
       src: chrony.jinja2
