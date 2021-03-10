@@ -7,6 +7,11 @@
     package:
       name: chrony
       state: present
+      
+  - name: remove chronyd config
+    file:
+      path: /etc/chrony.conf
+      state: absent
  
   - name: Copy over the chronyd configuration
     template: 
