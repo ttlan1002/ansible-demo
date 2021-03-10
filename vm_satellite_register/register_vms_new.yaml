@@ -15,6 +15,7 @@
       activationkey: '{{ activationkey }}' 
       org_id: Default_Organization
       force_register: true
+      server_insecure: true
 
 
   
