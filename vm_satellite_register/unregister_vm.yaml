@@ -5,7 +5,7 @@
   tasks:
   - name: uninstall katello-ca rpm
     yum:
-      name: katello-ca-consumer-latest.noarch.rpm
+      name: "katello-ca-consumer-latest.noarch.rpm"
       state: absent
       disable_gpg_check: yes
   
