@@ -9,6 +9,9 @@
       state: absent
       disable_gpg_check: yes
   
+  - name: clean
+    command: subscription-manager clean
+      
 
   - name: Unregister
     redhat_subscription:
