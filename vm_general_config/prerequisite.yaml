@@ -5,7 +5,7 @@
   tasks:
   - name: configure hostname
     hostname:
-      name: "{{ hostname }}" 
+      name: "{{ inventory_hostname }}" 
       
   - name: install required packages
     package:
