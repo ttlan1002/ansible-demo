@@ -14,6 +14,10 @@
       dest: /etc/chrony.conf
     notify:
     - restart chronyd
+    
+  - name: set timezone
+    timezone: 
+      name: Asian/Ho_Chi_Minh
 
   handlers:
   - name: restart chronyd
