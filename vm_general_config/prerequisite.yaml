@@ -5,10 +5,7 @@
   tasks:
   - name: install required packages
     package:
-      name:
-      - chrony
-      - policycoreutils-python-utils
-      - insights-client
+      name: chrony
       state: present
  
   - name: Copy over the chronyd configuration
@@ -17,22 +14,6 @@
       dest: /etc/chrony.conf
     notify:
     - restart chronyd
-
-  - name: Check which hypervisor is used
-    command: virt-what
-    register: hypervisor   
- 
-  - name: install the latest version of VMware guess-tools
-    yum:
-      name: open-vm-tools
-      state: latest
-    when: hypervisor.stdout == "vmware"
-
-  - name: install the latest version of RHV guess-tools
-    yum:
-      name: ovirt-guest-agent-common
-      state: latest
-    when: hypervisor.stdout == "kvm"
 
   handlers:
   - name: restart chronyd
