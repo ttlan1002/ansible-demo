@@ -3,9 +3,6 @@
   hosts: all
   gather_facts: false
   tasks:
-  - name: configure hostname
-    hostname:
-      name: "{{ inventory_hostname }}" 
       
   - name: install required packages
     package:
