@@ -32,7 +32,23 @@
       - haproxy
       - httpd
       state: present
-     
+  
+  - name: clean config
+    file:
+      path: "{{ item }}"
+      state: absent
+    loop:
+      - /etc/haproxy/haproxy.cfg
+      - /etc/httpd/conf/httpd.conf
+      
+  - name: enable haproxy and httpd service
+    service:
+      name: "{{ item }}"
+      state: started
+      enabled: true
+    loop:
+      - haproxy
+      - httpd     
       
   - name: Copy over the haproxy configuration
     template: 
