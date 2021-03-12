@@ -1,0 +1,16 @@
+---
+- name: setup openscap
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: install scap packages
+      yum:
+        name: 
+          - scap-security-guide
+          - openscap-scanner
+          - openscap
+        state: present
+
+
+    - name: run insight scan
+      command: insights-client --compliance
