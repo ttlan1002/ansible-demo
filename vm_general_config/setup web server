@@ -1,0 +1,28 @@
+---
+- name:  Config Webservers
+  hosts: all
+  gather_facts: true
+  
+  tasks:   
+
+  - name: Firewall configure
+    firewalld:
+      port: "{{ item }}"
+      permanent: yes
+      state: enabled
+      immediate: true
+    loops
+    - 80/tcp
+    - 443/tcp
+
+  - name: install required packages
+    yum:
+      name: httpd
+      state: present
+  
+  - name: enable httpd service
+    service:
+      name: httpd
+      state: started
+      enabled: true
+      
