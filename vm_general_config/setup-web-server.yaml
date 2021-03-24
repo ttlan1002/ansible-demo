@@ -2,9 +2,8 @@
 - name:  Config Webservers
   hosts: all
   gather_facts: true
-  
+ 
   tasks:   
-
   - name: Firewall configure
     firewalld:
       port: "{{ item }}"
