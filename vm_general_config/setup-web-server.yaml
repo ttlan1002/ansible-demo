@@ -11,9 +11,9 @@
       permanent: yes
       state: enabled
       immediate: true
-    loops
-    - 80/tcp
-    - 443/tcp
+    loops:
+      - 80/tcp
+      - 443/tcp
 
   - name: install required packages
     yum:
