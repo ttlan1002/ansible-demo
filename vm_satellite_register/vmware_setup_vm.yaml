@@ -1,0 +1,39 @@
+---
+- name:  Setup VMs
+  hosts: all
+  tasks:
+  - name: Register to Red Hat's RHN
+    redhat_subscription:
+      state: present
+      username: '{{ rhn_username }}'
+      password: '{{ rhn_password }}'
+      pool_ids: 8a85f99a74791f6201749642fba74b42
+  
+  - name: install required packages
+    yum:
+      name: 
+        - httpd
+        - firewalld
+      state: present
+
+  - name: Firewall configure
+    firewalld:
+      port: "{{ item }}"
+      permanent: yes
+      state: enabled
+      immediate: true
+    loop:
+      - 80/tcp
+      - 443/tcp
+
+  - name: enable httpd service
+    service:
+      name: httpd
+      state: started
+      enabled: true
+
+  - name: enable firewalld service
+    service:
+      name: firewalld
+      state: started
+      enabled: true

@@ -24,6 +24,7 @@
       cluster: '{{ vcenter_cluster }}'
       networks:
       - name: '{{ vsphere_network }}'
+        type: static
         ip: '{{ vm_ip }}'
         netmask: '{{ vm_netmask }}'
         gateway: '{{ vm_gateway }}'
