@@ -5,7 +5,7 @@
   vars:
     vcenter_datacenter: HCM
     vcenter_datastore: Nas-storage
-    vsphere_folder: /HCM/RHEL
+    vsphere_folder: /RHEL
     vm_template: rhel83template
     vcenter_cluster: HCM-Cluster
     vsphere_network: 'VM Network'
