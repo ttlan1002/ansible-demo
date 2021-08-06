@@ -1,0 +1,49 @@
+---
+- name:  Clone a virtual machine from Linux template and customize
+  hosts: ansible
+  gather_facts: false
+  vars:
+    vcenter_datacenter: HCM
+    vcenter_datastore: Nas-storage
+    vsphere_folder: /HCM/vm
+    vm_template: rhel83template
+    vcenter_cluster: HCM-Cluster
+    vsphere_network: VM Network
+
+
+  tasks:
+  - name: provisioning VM from template
+    vmware_guest:
+      validate_certs: no
+      datacenter: '{{ vcenter_datacenter }}'
+      datastore: '{{ vcenter_datastore }}'
+      state: poweredon
+      folder: '{{ vsphere_folder }}'
+      template: '{{ vm_template }}'
+      name: '{{ vm_name }}'
+      cluster: '{{ vcenter_cluster }}'
+      networks:
+      - name: '{{ vsphere_network}}'
+        ip: '{{ vm_ip }}'
+        netmask: '{{ vm_netmask }}'
+        gateway: '{{ vm_gateway }}'
+      customization:
+        dns_servers: 192.168.1.110
+    delegate_to: localhost
+
+  - name: wait vmware tools started
+    vmware_guest_tools_wait:
+      validate_certs: no
+      name: '{{ vm_name }}'
+      folder: '{{ vsphere_folder }}'
+    delegate_to: localhost
+    register: facts
+
+  - name: wait ssh port
+    wait_for:
+      port: 22
+      host: '{{ vm_ip }}'
+      search_regex: OpenSSH
+      delay: 10
+      timeout: 180
+    delegate_to: localhost
