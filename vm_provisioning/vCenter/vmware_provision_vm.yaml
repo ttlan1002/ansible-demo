@@ -48,3 +48,8 @@
       delay: 10
       timeout: 180
     delegate_to: localhost
+
+  - name: wait for ansible intentory get ip 
+    wait_for:
+      timeout: 360
+    delegate_to: localhost
