@@ -1,6 +1,10 @@
 ---
 - name:  Install Katello CA
   hosts: all
+  vars:
+    katello_ca_url: http://satellite.homelab.local/pub/katello-ca-consumer-latest.noarch.rpm
+    activationkey: mykey
+    
   tasks:
   - name: install katello-ca rpm
     yum:
