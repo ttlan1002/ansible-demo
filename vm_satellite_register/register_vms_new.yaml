@@ -4,7 +4,7 @@
   vars:
     katello_ca_url: http://satellite.homelab.local/pub/katello-ca-consumer-latest.noarch.rpm
     activationkey: mykey
-    
+
   tasks:
   - name: install katello-ca rpm
     yum:
@@ -20,5 +20,9 @@
       org_id: Default_Organization
    
 
-
+  - name: distribute the pub ssh key
+    authorized_key:
+      user: root
+      state: present
+      key: https://satellite.homelab.local:9090/ssh/pubkey
   
