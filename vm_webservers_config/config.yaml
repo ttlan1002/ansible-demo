@@ -63,17 +63,7 @@
     loop:
       - haproxy
       - httpd     
-      
- 
-
-  - name: enable haproxy and httpd service
-    service:
-      name: "{{ item }}"
-      state: started
-      enabled: true
-    loop:
-      - haproxy
-      - httpd
+  
       
   handlers:
   - name: restart httpd
