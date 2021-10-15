@@ -7,7 +7,7 @@
       state: present
       username: '{{ rhn_username }}'
       password: '{{ rhn_password }}'
-      pool_ids: 8a85f99a74791f6201749642fba74b42
+      pool_ids: 8a85f99b7c18bf35017c6d0258c44980
   
   - name: install required packages
     yum:
