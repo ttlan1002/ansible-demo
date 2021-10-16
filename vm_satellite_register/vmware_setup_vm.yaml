@@ -2,6 +2,11 @@
 - name:  Setup VMs
   hosts: all
   tasks:
+  - name: Check whether the system is already registered
+    command: subscription-manager status
+    register: rhsm_status
+    ignore_errors: yes
+    
   - name: Register to Red Hat's RHN
     redhat_subscription:
       state: present
