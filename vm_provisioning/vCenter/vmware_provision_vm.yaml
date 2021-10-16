@@ -51,5 +51,5 @@
 
   - name: wait for ansible intentory get ip 
     wait_for:
-      timeout: 20
+      timeout: 30
     delegate_to: localhost
