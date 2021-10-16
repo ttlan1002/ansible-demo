@@ -54,7 +54,6 @@
       dest: /etc/httpd/conf/httpd.conf
     notify:
     - restart httpd  
-    
       
   handlers:
   - name: restart httpd

@@ -1,0 +1,14 @@
+---
+- name:  Enable services
+  hosts: all
+  gather_facts: true
+  
+  tasks:  
+  - name: enable haproxy and httpd service
+    service:
+      name: "{{ item }}"
+      state: started
+      enabled: true
+    loop:
+      - haproxy
+      - httpd     
