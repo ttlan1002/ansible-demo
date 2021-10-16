@@ -8,6 +8,7 @@
       username: thtran1002
       password: Ozil@1002
       pool_ids: 8a85f99b7c18bf35017c6d0258c44980
+    when: rhsm_status.rc != 0
   
   - name: install required packages
     yum:
