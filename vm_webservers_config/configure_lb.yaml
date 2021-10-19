@@ -1,0 +1,46 @@
+---
+- name:  Config LB
+  hosts: all
+  gather_facts: true
+  
+  tasks: 
+  - name: Gather facts from rhel8 group
+    ansible.builtin.setup:
+    delegate_to: "{{ item }}"
+    delegate_facts: true
+    loop: "{{ groups['rhel8_64Guest'] }}"
+
+  - name: Firewall configure
+    firewalld:
+      port: "{{ item }}"
+      permanent: yes
+      state: enabled
+      immediate: true
+    with_items:
+    - 80/tcp
+
+  - name: install required packages
+    package:
+      name:
+      - haproxy
+      state: present
+  
+  - name: clean config
+    file:
+      path: "{{ item }}"
+      state: absent
+    loop:
+      - /etc/haproxy/haproxy.cfg
+    
+  - name: Copy over the haproxy configuration
+    template: 
+      src: haproxy_cfg.jinja2
+      dest: /etc/haproxy/haproxy.cfg
+    notify:
+    - restart haproxy
+      
+  handlers:
+  - name: restart haproxy
+    service: 
+      name: haproxy  
+      state: restarted
