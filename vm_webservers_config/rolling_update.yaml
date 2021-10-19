@@ -21,6 +21,7 @@
       security: true
       update_only: true
       install_weak_deps: true
+      skip_broken: true
        
 
 
