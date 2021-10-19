@@ -8,7 +8,7 @@
   - name: disable the server in haproxy
     haproxy: 
       state: disabled
-      host: node1
+      host: "{{ inventory_hostname }}"
       socket: /var/lib/haproxy/stats
       wait: true
       drain: true
@@ -25,7 +25,7 @@
   - name: enabled the server in haproxy
     haproxy: 
       state: enabled
-      host: node1
+      host: "{{ inventory_hostname }}"
       socket: /var/lib/haproxy/stats
       wait: true
     delegate_to: loadbalancer.homelab.local
