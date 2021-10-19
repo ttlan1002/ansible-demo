@@ -14,11 +14,11 @@
     delegate_to: lb.homelab.local
 
   tasks:  
-  - name: upgrade all packages except kernel
+  - name: upgrade all security packages
     yum:
       name: '*'
       state: latest
-      exclude: kernel*
+      security: true
     tags: all 
 
 
