@@ -10,3 +10,4 @@
       host: node1
       socket: /var/lib/haproxy/stats
       wait: true
+      drain: true
