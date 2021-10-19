@@ -11,7 +11,6 @@
       host: "{{ inventory_hostname }}"
       socket: /var/lib/haproxy/stats
       wait: true
-      shutdown_sessions: true
     delegate_to: loadbalancer.homelab.local
 
   tasks:  
