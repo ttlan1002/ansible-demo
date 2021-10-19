@@ -91,7 +91,9 @@ listen ingress_http
     option tcplog
     timeout connect 10s
     timeout server 1m
+    default_backend app
 
+backend app
     {% for host in groups['rhel8_64Guest'] %}
     server {{ host }} {{ hostvars[host].ansible_default_ipv4.address }}:{{ httpd_port }} check
     {% endfor %}
