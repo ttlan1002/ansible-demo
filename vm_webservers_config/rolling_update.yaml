@@ -18,8 +18,6 @@
     yum:
       name: '*'
       state: latest
-      security: true
-    tags: all 
 
 
   post_tasks:
