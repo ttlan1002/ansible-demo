@@ -20,6 +20,7 @@
       state: latest
       security: true
       exclude: kernel*
+      update_only: true
 
 
   post_tasks: 
