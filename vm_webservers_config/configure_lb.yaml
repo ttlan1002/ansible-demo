@@ -1,6 +1,6 @@
 ---
 - name:  Config LB
-  hosts: all
+  hosts: lb.homelab.local
   gather_facts: true
   
   tasks: 
