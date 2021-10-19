@@ -10,7 +10,6 @@
       state: disabled 
       backend: app 
       host: "{{ inventory_hostname }}"
-      socket: /var/run/haproxy.sock
       wait: true
     delegate_to: lb.homelab.local
 
