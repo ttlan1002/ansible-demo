@@ -1,6 +1,6 @@
 ---
 - name:  Config LB
-  hosts: lb.homelab.local
+  hosts: loadbalancer.homelab.local
   gather_facts: true
   
   tasks: 
