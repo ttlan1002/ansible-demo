@@ -1,6 +1,6 @@
 ---
 - name: Deploy web content
-  hosts: all
+  hosts: rhel8_64Guest
   gather_facts: true
   tasks:
     - name: Copy over the httpd index
