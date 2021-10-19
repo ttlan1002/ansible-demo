@@ -1,0 +1,12 @@
+---
+- name:  Rolling Update
+  hosts: lb.homelab.local
+  gather_facts: true
+  
+  tasks: 
+  - name: disable the server in haproxy
+    haproxy: 
+      state: disabled 
+      backend: app 
+      host: node1
+      wait: true
