@@ -10,3 +10,4 @@
       backend: app 
       host: node1
       wait: true
+      socket: /var/lib/haproxy/stats
