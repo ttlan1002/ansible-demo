@@ -19,6 +19,7 @@
       name: '*'
       state: latest
       security: true
+      exclude: kernel*
 
 
   post_tasks: 
