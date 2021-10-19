@@ -22,7 +22,7 @@
 
 
   post_tasks: 
-  - name: disable the server in haproxy
+  - name: enabled the server in haproxy
     haproxy: 
       state: enabled
       host: node1
