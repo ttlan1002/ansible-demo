@@ -1,0 +1,33 @@
+---
+- name:  Rolling Update
+  hosts: rhel8_64Guest
+  gather_facts: true
+  serial: 1
+  
+  pre_tasks: 
+  - name: disable the server in haproxy
+    haproxy: 
+      state: disabled 
+      backend: app 
+      host: "{{ inventory_hostname }}"
+      socket: /var/lib/haproxy/stats
+    delegate_to: lb.homelab.local
+
+  tasks:  
+  - name: upgrade all packages except kernel
+    yum:
+      name: '*'
+      state: latest
+      exclude: kernel*
+    tags: all 
+
+
+  post_tasks:
+  - name: enable the server in haproxy
+    haproxy: 
+      state: enabled 
+      backend: myapplb 
+      host: "{{ inventory_hostname }}" 
+      socket: /var/lib/haproxy/stats
+    delegate_to: lb.homelab.local
+    
