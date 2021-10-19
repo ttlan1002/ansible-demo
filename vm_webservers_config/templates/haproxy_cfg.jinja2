@@ -94,6 +94,7 @@ listen ingress_http
     default_backend app
 
 backend app
+    balance roundrobin
     {% for host in groups['rhel8_64Guest'] %}
     server {{ host }} {{ hostvars[host].ansible_default_ipv4.address }}:{{ httpd_port }} check
     {% endfor %}
