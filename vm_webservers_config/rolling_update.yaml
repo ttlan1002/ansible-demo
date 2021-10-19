@@ -26,6 +26,6 @@
       state: enabled 
       backend: myapplb 
       host: "{{ inventory_hostname }}" 
-      socket: /var/lib/haproxy/stats
+      wait: true
     delegate_to: lb.homelab.local
     
