@@ -6,7 +6,7 @@
   tasks: 
   - name: disable the server in haproxy
     haproxy: 
-      state: disabled 
+      state: drain
       host: node1
-      wait: true
       socket: /var/lib/haproxy/stats
+      wait: true
