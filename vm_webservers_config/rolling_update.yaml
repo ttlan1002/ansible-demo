@@ -19,7 +19,6 @@
       name: '*'
       state: latest
       security: true
-      exclude: kernel*
       update_only: true
       install_weak_deps: true
        
