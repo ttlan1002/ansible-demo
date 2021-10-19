@@ -49,3 +49,7 @@
       timeout: 40
     delegate_to: localhost
 
+  - name: wait for ansible intentory get ip 
+    wait_for:
+      timeout: 40
+    delegate_to: localhost

@@ -2,6 +2,10 @@
 - name:  Setup VMs
   hosts: rhel8_64Guest
   tasks:
+
+
+
+
   - name: Check whether the system is already registered
     command: subscription-manager status
     register: rhsm_status
