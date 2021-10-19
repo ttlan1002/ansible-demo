@@ -10,14 +10,6 @@
     delegate_facts: true
     loop: "{{ groups['rhel8_64Guest'] }}"
 
-  - name: Firewall configure
-    firewalld:
-      port: "{{ item }}"
-      permanent: yes
-      state: enabled
-      immediate: true
-    with_items:
-    - 80/tcp
 
   - name: install required packages
     package:
