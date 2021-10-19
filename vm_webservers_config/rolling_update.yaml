@@ -10,6 +10,7 @@
       state: disabled 
       backend: app 
       host: "{{ inventory_hostname }}"
+      socket: /var/lib/haproxy/stats
       wait: true
     delegate_to: lb.homelab.local
 
@@ -24,8 +25,9 @@
   - name: enable the server in haproxy
     haproxy: 
       state: enabled 
-      backend: myapplb 
-      host: "{{ inventory_hostname }}" 
+      backend: app 
+      host: "{{ inventory_hostname }}"
+      socket: /var/lib/haproxy/stats
       wait: true
     delegate_to: lb.homelab.local
     
