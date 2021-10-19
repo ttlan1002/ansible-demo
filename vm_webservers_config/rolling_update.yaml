@@ -10,8 +10,8 @@
       state: disabled 
       backend: app 
       host: "{{ inventory_hostname }}"
-      socket: /var/lib/haproxy/stats
-      waitL: true
+      socket: /var/run/haproxy.sock
+      wait: true
     delegate_to: lb.homelab.local
 
   tasks:  
