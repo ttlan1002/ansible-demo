@@ -21,6 +21,8 @@
       security: true
       exclude: kernel*
       update_only: true
+      install_weak_deps: true
+       
 
 
   post_tasks: 
