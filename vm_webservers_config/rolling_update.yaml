@@ -6,26 +6,27 @@
   
   pre_tasks: 
   - name: disable the server in haproxy
-    community.general.haproxy: 
-      state: disabled 
-      backend: app 
-      host: "{{ inventory_hostname }}"
+    haproxy: 
+      state: disabled
+      host: node1
+      socket: /var/lib/haproxy/stats
       wait: true
-    delegate_to: lb.homelab.local
+      drain: true
+    delegate_to: loadbalancer.homelab.local
 
   tasks:  
-  - name: upgrade all security packages
+  - name: upgrade all packages
     yum:
       name: '*'
       state: latest
 
 
-  post_tasks:
-  - name: enable the server in haproxy
-    community.general.haproxy: 
-      state: enabled 
-      backend: app 
-      host: "{{ inventory_hostname }}"
+   pre_tasks: 
+  - name: disable the server in haproxy
+    haproxy: 
+      state: enabled
+      host: node1
+      socket: /var/lib/haproxy/stats
       wait: true
-    delegate_to: lb.homelab.local
+    delegate_to: loadbalancer.homelab.local
     
