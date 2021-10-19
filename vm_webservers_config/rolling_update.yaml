@@ -14,14 +14,13 @@
     delegate_to: loadbalancer.homelab.local
 
   tasks:  
-  - name: upgrade all packages
+  - name: upgrade required packages
     yum:
-      name: '*'
+      name: "{{ item }}"
       state: latest
-      security: true
-      update_only: true
-      install_weak_deps: true
-      skip_broken: true
+    loop: "{{ needed_packages }}"
+
+     
        
 
 
