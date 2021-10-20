@@ -18,7 +18,7 @@
     yum:
       name: "{{ item }}"
       state: latest
-    loop: "{{ needed_packages.split('\n') }}"
+    loop: "{{ updates_packages.split('\n') }}"
 
      
        
