@@ -1,0 +1,7 @@
+---
+- name: Setup an EC2 instance
+  hosts: all
+  gather_facts: false
+  tasks:
+  - name: gather_facts
+    ec2_instance_facts:
