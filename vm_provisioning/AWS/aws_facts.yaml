@@ -5,4 +5,4 @@
   become: true
   tasks:
   - name: gather_facts
-    ec2_instance_facts:
+    ec2_instance_info:
