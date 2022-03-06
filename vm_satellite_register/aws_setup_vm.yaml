@@ -12,16 +12,6 @@
         - firewalld
       state: present
 
-  - name: Firewall configure
-    firewalld:
-      port: "{{ item }}"
-      permanent: yes
-      state: enabled
-      immediate: true
-    loop:
-      - 80/tcp
-      - 443/tcp
-
   - name: enable httpd service
     service:
       name: httpd
@@ -33,3 +23,15 @@
       name: firewalld
       state: started
       enabled: true
+
+
+
+  - name: Firewall configure
+    firewalld:
+      port: "{{ item }}"
+      permanent: yes
+      state: enabled
+      immediate: true
+    loop:
+      - 80/tcp
+      - 443/tcp
