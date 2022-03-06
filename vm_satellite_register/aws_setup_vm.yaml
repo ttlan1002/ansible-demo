@@ -1,6 +1,7 @@
 ---
 - name:  Setup VMs
   hosts: all
+  become: true
   tasks:
 
   
