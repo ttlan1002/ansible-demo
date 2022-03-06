@@ -1,7 +1,8 @@
 ---
 - name: Setup an EC2 instance
   hosts: all
-  gather_facts: false
+  gather_facts: true
+  become: true
   tasks:
   - name: gather_facts
     ec2_instance_facts:
