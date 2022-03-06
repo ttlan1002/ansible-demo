@@ -2,10 +2,11 @@
 - name: Deploy web content
   hosts: all
   gather_facts: true
+  become: true
   tasks:
     - name: Copy over the httpd index
       template:
-        src: index.jinja2
+        src: index_aws.jinja2
         dest: /var/www/html/index.html
       notify:
         - restart httpd
