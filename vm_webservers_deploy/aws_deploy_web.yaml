@@ -7,6 +7,7 @@
       ec2_instance_info:
         region: ap-southeast-1
       delegate_to: localhost
+      register: ec2
 
     - name: Copy over the httpd index
       template:
