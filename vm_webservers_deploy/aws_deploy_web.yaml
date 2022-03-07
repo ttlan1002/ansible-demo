@@ -2,14 +2,20 @@
 - name: Deploy web content
   hosts: all
   gather_facts: true
-  become: true
   tasks:
+    - name: gather ec2 facts
+      ec2_instance_info:
+        region: ap-southeast-1
+      delegate_to: localhost
+
     - name: Copy over the httpd index
       template:
         src: index_aws.jinja2
         dest: /var/www/html/index.html
       notify:
         - restart httpd
+      become: true
+
 
     - name: Copy over the httpd index
       copy:
@@ -21,9 +27,12 @@
         backup: yes
       notify:
         - restart httpd
+      become: true
+
 
   handlers:
     - name: restart httpd
       service:
         name: httpd
         state: restarted
+      become: true
