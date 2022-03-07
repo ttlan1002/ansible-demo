@@ -98,6 +98,7 @@ backend app
     {% for host in groups['rhel8_64Guest'] %}
     server {{ host }} {{ hostvars[host].ansible_default_ipv4.address }}:{{ httpd_port }} check
     {% endfor %}
+    server aws 54.169.247.65:80 check
 
 listen  stats
         bind  :9000
