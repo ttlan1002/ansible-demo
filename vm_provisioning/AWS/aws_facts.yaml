@@ -6,4 +6,5 @@
   tasks:
   - name: gather_facts
     ec2_instance_info:
+      region: ap-southeast-1
     delegate_to: localhost
