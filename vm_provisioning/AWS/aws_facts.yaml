@@ -5,4 +5,5 @@
   become: true
   tasks:
   - name: gather_facts
-    ec2_eni_info:
+    ec2_instance_info:
+    delegate_to: localhost
