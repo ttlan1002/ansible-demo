@@ -37,7 +37,11 @@
 				<b> Welcome to Red Hat Ansible Automation Platform Demo on </b>
 	</h1>
 	<p align="center" style="margin-bottom: 0in; line-height: 100%; color:Red; font-size: 50pt">
-				<b> {{ ec2.instances.public_dns_name }} </b>
+				<b> 
+				{% for value in ec2.instances %}
+				{{ value.public_dns_name }}
+				{% endfor %} 
+				</b>
 	</p>
 	<p align="center" style="margin-bottom: 0in; line-height: 100%"><img src="index_html_image.gif" name="Image1" align="center"
 			width="770" height="234" border="0" />
