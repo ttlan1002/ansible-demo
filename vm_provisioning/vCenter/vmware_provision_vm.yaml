@@ -46,7 +46,7 @@
       host: '{{ vm_ip }}'
       search_regex: OpenSSH
       delay: 10
-      timeout: 40
+      timeout: 180
     delegate_to: localhost
 
   - name: wait for ansible intentory get ip 
